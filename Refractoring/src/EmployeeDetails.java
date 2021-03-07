@@ -1035,7 +1035,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				new SearchBySurnameDialog(EmployeeDetails.this);
 		}
 		}
-	}// end actionPerformed
+	// end actionPerformed
 
 	// content pane for main dialog
 	private void createContentPane() {
