@@ -152,8 +152,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		searchPanel.add(searchByIdField = new JTextField(20), "width 200:200:200, growx, pushx");
 		searchByIdField.addActionListener(this);
 		searchByIdField.setDocument(new JTextFieldLimit(20));
-		searchPanel.add(searchId = new JButton(new ImageIcon(
-				new ImageIcon("imgres.png").getImage().getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
+		searchPanel.add(
+				searchId = new JButton(new ImageIcon(
+						new ImageIcon("imgres.png").getImage().getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
 				"width 35:35:35, height 20:20:20, growx, pushx, wrap");
 		searchId.addActionListener(this);
 		searchId.setToolTipText("Search Employee By ID");
@@ -163,8 +164,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		searchBySurnameField.addActionListener(this);
 		searchBySurnameField.setDocument(new JTextFieldLimit(20));
 		searchPanel.add(
-				searchSurname = new JButton(new ImageIcon(new ImageIcon("imgres.png").getImage()
-						.getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
+				searchSurname = new JButton(new ImageIcon(
+						new ImageIcon("imgres.png").getImage().getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
 				"width 35:35:35, height 20:20:20, growx, pushx, wrap");
 		searchSurname.addActionListener(this);
 		searchSurname.setToolTipText("Search Employee By Surname");
@@ -183,8 +184,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		first.addActionListener(this);
 		first.setToolTipText("Display first Record");
 
-		navigPanel.add(previous = new JButton(new ImageIcon(new ImageIcon("previous.png").getImage()
-				.getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
+		navigPanel.add(previous = new JButton(new ImageIcon(
+				new ImageIcon("previous.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
 		previous.setPreferredSize(new Dimension(17, 17));
 		previous.addActionListener(this);
 		previous.setToolTipText("Display next Record");
@@ -654,11 +655,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		boolean ppsExist = false;
 		// check for correct PPS format based on assignment description
 		if (pps.length() == 8 || pps.length() == 9) {
-			if (Character.isDigit(pps.charAt(0)) && Character.isDigit(pps.charAt(1))
-					&& Character.isDigit(pps.charAt(2))	&& Character.isDigit(pps.charAt(3)) 
-					&& Character.isDigit(pps.charAt(4))	&& Character.isDigit(pps.charAt(5)) 
-					&& Character.isDigit(pps.charAt(6))	&& Character.isLetter(pps.charAt(7))
-					&& (pps.length() == 8 || Character.isLetter(pps.charAt(8)))) {
+			if (Character.isDigit(pps.charAt(0)) && Character.isDigit(pps.charAt(1)) && Character.isDigit(pps.charAt(2))
+					&& Character.isDigit(pps.charAt(3)) && Character.isDigit(pps.charAt(4))
+					&& Character.isDigit(pps.charAt(5)) && Character.isDigit(pps.charAt(6))
+					&& Character.isLetter(pps.charAt(7)) && (pps.length() == 8 || Character.isLetter(pps.charAt(8)))) {
 				// open file for reading
 				application.openReadFile(file.getAbsolutePath());
 				// look in file is PPS already in use
@@ -930,33 +930,26 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				// if user chooses to save file, save file
 				if (returnVal == JOptionPane.YES_OPTION) {
 					saveFile();// save file
-					// delete generated file if user saved details to other file
-					if (file.getName().equals(generatedFileName))
-						file.delete();// delete file
-					System.exit(0);// exit application
+						deleteFile();
 				} // end if
-					// else exit application
 				else if (returnVal == JOptionPane.NO_OPTION) {
-					// delete generated file if user chooses not to save file
-					if (file.getName().equals(generatedFileName))
-						file.delete();// delete file
-					System.exit(0);// exit application
+						deleteFile();
 				} // end else if
 			} // end if
 			else {
-				// delete generated file if user chooses not to save file
-				if (file.getName().equals(generatedFileName))
-					file.delete();// delete file
-				System.exit(0);// exit application
+					deleteFile();
 			} // end else
-				// else exit application
 		} else {
-			// delete generated file if user chooses not to save file
-			if (file.getName().equals(generatedFileName))
-				file.delete();// delete file
-			System.exit(0);// exit application
+				deleteFile();
 		} // end else
 	}// end exitApp
+	
+	private void deleteFile() {
+		if (file.getName().equals(generatedFileName)) {
+		file.delete();// delete file
+		System.exit(0);// exit application
+		}
+	}
 
 	// generate 20 character long file name
 	private String getFileName() {
@@ -985,56 +978,56 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	public void actionPerformed(ActionEvent e) {
 
 		if (checkInput() && !checkForChanges()) {
-			
-		if (e.getSource() == closeApp) {
+
+			if (e.getSource() == closeApp) {
 				exitApp();
-		} else if (e.getSource() == open) {
+			} else if (e.getSource() == open) {
 				openFile();
-		} else if (e.getSource() == save) {
+			} else if (e.getSource() == save) {
 				saveFile();
-			change = false;
-		} else if (e.getSource() == saveAs) {
+				change = false;
+			} else if (e.getSource() == saveAs) {
 				saveFileAs();
-			change = false;
-		} else if (e.getSource() == searchById) {
+				change = false;
+			} else if (e.getSource() == searchById) {
 				displaySearchByIdDialog();
-		} else if (e.getSource() == searchBySurname) {
+			} else if (e.getSource() == searchBySurname) {
 				displaySearchBySurnameDialog();
-		} else if (e.getSource() == searchId || e.getSource() == searchByIdField)
-			searchEmployeeById();
-		else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField)
-			searchEmployeeBySurname();				
+			} else if (e.getSource() == searchId || e.getSource() == searchByIdField)
+				searchEmployeeById();
+			else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField)
+				searchEmployeeBySurname();
 		} else if (e.getSource() == cancelChange)
 			cancelChange();
 		else if (e.getSource() == firstItem || e.getSource() == first) {
-				firstRecord();
-				displayRecords(currentEmployee);
-			
+			firstRecord();
+			displayRecords(currentEmployee);
+
 		} else if (e.getSource() == prevItem || e.getSource() == previous) {
-				previousRecord();
-				displayRecords(currentEmployee);
-			
+			previousRecord();
+			displayRecords(currentEmployee);
+
 		} else if (e.getSource() == nextItem || e.getSource() == next) {
-				nextRecord();
-				displayRecords(currentEmployee);
-			
+			nextRecord();
+			displayRecords(currentEmployee);
+
 		} else if (e.getSource() == lastItem || e.getSource() == last) {
-				lastRecord();
-				displayRecords(currentEmployee);
-			
+			lastRecord();
+			displayRecords(currentEmployee);
+
 		} else if (e.getSource() == listAll || e.getSource() == displayAll) {
-				if (isSomeoneToDisplay())
-					displayEmployeeSummaryDialog();
+			if (isSomeoneToDisplay())
+				displayEmployeeSummaryDialog();
 		} else if (e.getSource() == create || e.getSource() == add) {
-				new AddRecordDialog(EmployeeDetails.this);
+			new AddRecordDialog(EmployeeDetails.this);
 		} else if (e.getSource() == modify || e.getSource() == edit) {
-				editDetails();
+			editDetails();
 		} else if (e.getSource() == delete || e.getSource() == deleteButton) {
-				deleteRecord();
+			deleteRecord();
 		} else if (e.getSource() == searchBySurname) {
-				new SearchBySurnameDialog(EmployeeDetails.this);
+			new SearchBySurnameDialog(EmployeeDetails.this);
 		}
-		}
+	}
 	// end actionPerformed
 
 	// content pane for main dialog
