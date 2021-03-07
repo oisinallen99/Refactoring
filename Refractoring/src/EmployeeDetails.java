@@ -842,9 +842,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes?", "Save",
 						JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 				// save changes if user choose this option
-				if (returnVal == JOptionPane.YES_OPTION) {
-					// save changes if ID field is not empty
-					if (!idField.getText().equals("")) {
+				if (returnVal == JOptionPane.YES_OPTION && !idField.getText().equals("")) {
 						// open file for writing
 						application.openWriteFile(file.getAbsolutePath());
 						// get changes for current Employee
@@ -855,7 +853,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 						application.closeWriteFile();// close file for writing
 					} // end if
 				} // end if
-			} // end if
 
 			displayRecords(currentEmployee);
 			setEnabled(false);
